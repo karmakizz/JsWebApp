@@ -1,5 +1,5 @@
 // URL of the JokeAPI
-const jokeAPIUrl = 'https://v2.jokeapi.dev/joke/Programming';
+const jokeAPIBaseUrl = 'https://v2.jokeapi.dev/joke/';
 
 // The button and the paragraph for displaying the joke
 const getJokeButton = document.getElementById('get-joke');
@@ -31,3 +31,31 @@ getJokeButton.addEventListener('click', async () => {
         jokeDisplay.textContent = 'Sorry, something went wrong.';
     }
 });
+
+//using promises
+fetch(`${jokeAPIBaseUrl}Any`)
+    .then(response => response.json())
+    .then(data => console.log('Fetched joke:', data.joke))
+    .catch(error => console.error('Error fetching joke:', error));
+
+//using async/await
+async function fetchJoke(category) {
+    try {
+        const response = await fetch(`${jokeAPIBaseUrl}${category}`);
+        const data = await response.json();
+        console.log('Fetched joke:', data.joke);
+    } catch (error) {
+        console.error('Error fetching joke:', error);
+    }
+}
+
+//Demonstrating how non-blocking code works
+console.log('1.Start fetching joke');
+setTimeout(() => {
+    console.log('2. Simulated delay');
+    fetch(`${jokeAPIBaseUrl}Any`)
+        .then(response => response.json())
+        .then(data => console.log('3. Fetched joke:', data.joke))
+        .catch(error => console.error('Error fetching joke:', error));
+    console.log('4. Fetching joke completed');
+}, 1000);
