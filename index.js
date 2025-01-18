@@ -59,3 +59,7 @@ setTimeout(() => {
         .catch(error => console.error('Error fetching joke:', error));
     console.log('4. Fetching joke completed');
 }, 1000);
+
+import { fetchJoke } from './api.js';
+import { displayJoke } from './dom.js';
+
